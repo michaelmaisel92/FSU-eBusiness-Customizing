@@ -35,4 +35,9 @@ export class ProductServiceService {
        }
      ];
    }
+
+   getDynamicProducts(): Product[] {
+     // Call API here and get Products dynamically, depending on given URL parameters
+    return [];
+  }
 }
