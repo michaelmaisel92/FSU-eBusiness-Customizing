@@ -15,18 +15,23 @@ export class ProductServiceService {
    getStaticProducts(): Product[] {
      return [
        {
-        name: 'product_1',
-        link: 'url_product_1'
+        name: 'Bier',
+        link: 'https://url_product_1'
        },
 
        {
-        name: 'product_1',
-        link: 'url_product_1'
+        name: 'Wein',
+        link: 'https://url_product_2'
        },
 
        {
-        name: 'product_1',
-        link: 'url_product_1'
+        name: 'Wasser',
+        link: 'https://url_product_3'
+       }
+
+       {
+        name: 'Urin',
+        link: 'https://url_product_4'
        }
      ];
    }

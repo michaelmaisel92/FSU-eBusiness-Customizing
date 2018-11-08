@@ -1,3 +1,10 @@
-<p>
-  product-list works!
-</p>
+
+<div class="row" style="margin: 30px;">
+    <app-product
+  *ngFor="let product of products"
+  [product]="product">
+</app-product>
+  </div>
+
+
+
