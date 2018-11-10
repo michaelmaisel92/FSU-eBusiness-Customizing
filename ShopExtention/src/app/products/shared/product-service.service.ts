@@ -16,22 +16,26 @@ export class ProductServiceService {
      return [
        {
         name: 'Bier',
-        link: 'https://url_product_1'
+        link: 'https://url_product_1',
+        image: 'assets/images/default.jpg'
        },
 
        {
         name: 'Wein',
-        link: 'https://url_product_2'
+        link: 'https://url_product_2',
+        image: ''
        },
 
        {
         name: 'Wasser',
-        link: 'https://url_product_3'
-       }
+        link: 'https://url_product_3',
+        image: ''
+       },
 
        {
         name: 'Urin',
-        link: 'https://url_product_4'
+        link: 'https://url_product_4',
+        image: ''
        }
      ];
    }
