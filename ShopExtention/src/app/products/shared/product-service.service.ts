@@ -16,16 +16,18 @@ export class ProductServiceService {
 
    }
 
-  //URL
+  // URL Parameters
+
+  // URL
   url = "http://prestashopa.netglue.de/api";
   key = "LL11XQ47LUKNVVLQ3MY31UUW4UATBE4Q";
   url_Addons = "output_format=JSON&display=full";
 
-  //Requests
+  // Requests
   categorie = "categories";
   product = "products";
 
-  //Array Buffer
+  // Array Buffer
   Products = [];
   Categories = [];
 
