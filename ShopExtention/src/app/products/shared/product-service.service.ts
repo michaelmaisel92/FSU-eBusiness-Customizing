@@ -9,82 +9,44 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductServiceService {
 
-  products: Product[];
-  result:Observable<any>;
+  productsArray: Product[] = [];
+  result: Observable<any>;
 
   constructor(private httpClient: HttpClient) {
 
-   }
+  }
 
-  // URL Parameters
-
-  // URL
   url = "http://prestashopa.netglue.de/api";
   key = "LL11XQ47LUKNVVLQ3MY31UUW4UATBE4Q";
   url_Addons = "output_format=JSON&display=full";
 
-  // Requests
-  categorie = "categories";
-  product = "products";
-
-  // Array Buffer
-  Products = [];
-  Categories = [];
-
-
-   getStaticProducts(): Product[] {
-     return [
-       {
-        name: 'Bier',
-        link: 'https://url_product_1',
-        image: 'assets/images/default.jpg'
-       },
-
-       {
-        name: 'Wein',
-        link: 'https://url_product_2',
-        image: ''
-       },
-
-       {
-        name: 'Wasser',
-        link: 'https://url_product_3',
-        image: ''
-       },
-
-       {
-        name: 'Urin',
-        link: 'https://url_product_4',
-        image: ''
-       }
-     ];
-   }
-
-   getDynamicProducts(): Product[] {
-     // Call API here and get Products dynamically, depending on given URL parameters
-    return [];
+  buildUrl() {
+    return this.url + '/' + 'products?ws_key=' + this.key + '&' + this.url_Addons;
   }
 
-  buildUrl(type){
-    return this.url + '/' + type + '?ws_key=' + this.key+ '&'+ this.url_Addons;
-  } 
+  getDynamicProducts(): Product[] {
+    // Call API here and get Products dynamically, depending on given URL parameters
+    console.log("Getting JSON from REST API");
+    this.result = this.httpClient.get(this.buildUrl());
+    this.result.subscribe(data => {
+      let numberOfProducts = data.products.length;
+      for (let index = 0; index < numberOfProducts; index++) {
 
-  getRequest(type){
-    this.result = this.httpClient.get(this.buildUrl(type));
-      this.result.subscribe( data => {
-        console.log( data );
-        if (type == this.product) {
-          this.Products = data; 
-          console.log(this.Products);
-          console.log(data.products[0].name[0].value);
-        } else {
-          this.Categories = data;
-          console.log(this.Categories);
-          console.log(data.categories[0].name[0].value); 
-        }
-      }, error => {
-        console.log( error );
-      })
+        var product = <Product>{};
+        product.name = data.products[index].name[0].value;
+        product.price = data.products[index].price;
+        product.availablilty = data.products[index].available_for_order;
+        product.description = data.products[index].description_short[0].value;
+        product.forsale = data.products[index].on_sale;
+
+        this.productsArray.push(product);
+
+      }
+      console.log(this.productsArray);
+    }, error => {
+      console.log(error);
+    })
+    return this.productsArray;
   }
 
 
