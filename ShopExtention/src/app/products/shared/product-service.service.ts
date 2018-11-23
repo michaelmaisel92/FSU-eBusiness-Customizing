@@ -66,6 +66,7 @@ export class ProductServiceService {
 
   getProductImage(productid): string{
       // IMPLEMENT THIS ;)
+    let imageid = '/16';
     let url = 'http://prestashopa.netglue.de/api/images/products/' + productid + imageid + '?ws_key=' + this.key;
     console.log(url);
     return url;
