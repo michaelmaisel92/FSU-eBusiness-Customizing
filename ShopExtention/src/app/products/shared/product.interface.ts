@@ -6,4 +6,6 @@ export interface Product {
     forsale: string;
     description: string;
     imageurl: string;
+    default_image_id: number;
+    link: string;
 }
