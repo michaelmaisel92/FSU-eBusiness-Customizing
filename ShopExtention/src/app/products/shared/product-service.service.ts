@@ -24,11 +24,11 @@ export class ProductServiceService {
 
   buildUrl(category, tag, locale) {
     if (!(category === undefined)) {
-      console.log('Got category parameter, build request with category as filter');
+      console.log('Category parameter transmitted, build request with category as filter ...');
       return this.url + '/' + 'products?ws_key=' + this.key + '&' + this.url_Addons + '&' + 'filter[id_category_default]=' + category;
     }
     if ((category === undefined)) {
-      console.log('Got no category parameter, show all products');
+      console.log('No category parameter transmitted, show all products ...');
       return this.url + '/' + 'products?ws_key=' + this.key + '&' + this.url_Addons;
     }
     if (!(tag === undefined)) {
@@ -36,12 +36,13 @@ export class ProductServiceService {
     }
   }
 
-  getDynamicProducts(category, tag, locale): Product[] {
+  getDynamicProducts(category, tag, locale, limit): Product[] {
     // Call API here and get Products dynamically, depending on given URL parameters
-    console.log('Getting JSON from REST API');
+    console.log('Getting JSON from REST API ...');
     this.result = this.httpClient.get(this.buildUrl(category, tag, locale));
     this.result.subscribe(data => {
-      console.log(data);
+      console.log('raw data: '  );
+      console.log(data)
       const numberOfProducts = data.products.length;
       for (let index = 0; index < numberOfProducts; index++) {
 
@@ -49,21 +50,17 @@ export class ProductServiceService {
 
         product.id = data.products[index].id;
 
-
         product.default_image_id = data.products[index].id_default_image;
-
 
         product.name = data.products[index].name[0].value;
 
         // Write method to build a proper price string, depening on which locale is given
         product.price = data.products[index].price.substring(0, data.products[index].price.length - 4) + ' €';
 
-
         product.availablilty = data.products[index].available_for_order;
 
         // Write method to remove unnecessary html-tags
-        product.description = data.products[index].description_short[0].value.replace('<p>', '').replace('</p>', '');
-
+        product.description = data.products[index].description_short[this.getLocaleValue(locale)].value.replace('<p>', '').replace('</p>', '');
 
         product.forsale = data.products[index].on_sale;
 
@@ -74,12 +71,19 @@ export class ProductServiceService {
         product.link = this.getProductLink(product.id);
 
         this.productsArray.push(product);
-
       }
+      console.log('products: ');
       console.log(this.productsArray);
+      if (!(limit === undefined)) {
+        console.log('Product limit was transmitted, reducing array ...')
+        while (this.productsArray.length > limit) {
+          this.productsArray.pop();
+        }
+      }
     }, error => {
       console.log(error);
     });
+
     return this.productsArray;
   }
 
@@ -93,5 +97,25 @@ export class ProductServiceService {
     return productlink;
   }
 
+  getLocaleValue(locale): number {
+    switch (locale) {
+      case 'de_DE':
+        console.log('Return code for de_DE language ...');
+        return 0;
+        break;
+      case 'en_US':
+        console.log('Return code for en_US language ...');
+        return 1;
+        break;
+      case 'fr_FR':
+        console.log('Return code for fr_FR language ...');
+        return 2;
+        break;
+      default:
+        console.log('Return code for default language ...');
+        return 0;
+        break;
+    }
+  }
 
 }

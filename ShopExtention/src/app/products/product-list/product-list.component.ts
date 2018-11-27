@@ -14,20 +14,23 @@ export class ProductListComponent implements OnInit {
   category: string;
   tag: string;
   locale: string;
+  limit: number;
 
   constructor(private ps: ProductServiceService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.category = params['category'];
-      console.log(this.category);
+      console.log('Category: ' + this.category + ' ...');
       this.tag = params['tag'];
-      console.log(this.tag);
+      console.log('Tag: ' + this.tag + ' ...');
       this.locale = params['locale'];
-      console.log(this.locale);
+      console.log('Locale: ' + this.locale + ' ...');
+      this.limit = params['limit'];
+      console.log('Limit: ' + this.limit + ' ...')
     });
 
-    this.products = this.ps.getDynamicProducts(this.category, this.tag, this.locale);
+    this.products = this.ps.getDynamicProducts(this.category, this.tag, this.locale, this.limit);
   }
 
 }
