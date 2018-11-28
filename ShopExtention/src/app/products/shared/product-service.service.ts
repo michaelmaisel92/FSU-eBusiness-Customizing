@@ -22,12 +22,12 @@ export class ProductServiceService {
   // Get output in JSON instead of XML
   url_Addons = 'output_format=JSON&display=full';
 
-  buildUrl(category, tag, locale) {
+  buildUrl(category, tag) {
     if (!(category === undefined)) {
       console.log('Category parameter transmitted, build request with category as filter ...');
       return this.url + '/' + 'products?ws_key=' + this.key + '&' + this.url_Addons + '&' + 'filter[id_category_default]=' + category;
     }
-    if ((category === undefined)) {
+    if ((category === undefined) && (tag === undefined)) {
       console.log('No category parameter transmitted, show all products ...');
       return this.url + '/' + 'products?ws_key=' + this.key + '&' + this.url_Addons;
     }
@@ -39,7 +39,7 @@ export class ProductServiceService {
   getDynamicProducts(category, tag, locale, limit): Product[] {
     // Call API here and get Products dynamically, depending on given URL parameters
     console.log('Getting JSON from REST API ...');
-    this.result = this.httpClient.get(this.buildUrl(category, tag, locale));
+    this.result = this.httpClient.get(this.buildUrl(category, tag));
     this.result.subscribe(data => {
       console.log('raw data: '  );
       console.log(data)
@@ -107,6 +107,7 @@ export class ProductServiceService {
         console.log('Return code for en_US language ...');
         return 1;
         break;
+      // Will be removed in the future
       case 'fr_FR':
         console.log('Return code for fr_FR language ...');
         return 2;
