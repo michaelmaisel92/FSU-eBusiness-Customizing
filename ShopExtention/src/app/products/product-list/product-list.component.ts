@@ -16,10 +16,17 @@ export class ProductListComponent implements OnInit {
   locale: string;
   limit: number;
 
+  horizontal: boolean;
+  vertical: boolean;
+
+  showbuttons: boolean = false;
+
   constructor(private ps: ProductServiceService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
+
+      // params for getDynamicProducts
       this.category = params['category'];
       console.log('Category: ' + this.category + ' ...');
       this.tag = params['tag'];
@@ -28,9 +35,35 @@ export class ProductListComponent implements OnInit {
       console.log('Locale: ' + this.locale + ' ...');
       this.limit = params['limit'];
       console.log('Limit: ' + this.limit + ' ...')
+      
+      // params for defining the applications look
+      this.vertical = params ['vertical'];
+      this.horizontal = params ['horizontal'];
     });
 
     this.products = this.ps.getDynamicProducts(this.category, this.tag, this.locale, this.limit);
+    console.log(Object.keys(this.products));
+
+    console.log('aaa');
+    this.getNumberofItems();
+
+    // ask maximilian about this, too dumb atm
+    console.log('Products array contains ' + this.products.length + ' products ...')
+    if (this.products.length > 1) {
+      this.showbuttons = true;
+    }
+
   }
 
+  scrollByLeft() {
+    document.getElementById("scrollme").scrollBy(320, 0);
+  }
+
+  scrollByRight() {
+    document.getElementById("scrollme").scrollBy(-320, 0);
+  }
+
+  getNumberofItems() :number {
+    return this.products.length;
+  }
 }

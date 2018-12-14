@@ -71,6 +71,8 @@ export class ProductServiceService {
         product.link = this.getProductLink(product.id);
 
         this.productsArray.push(product);
+        this.productsArray.push(product);
+        this.productsArray.push(product);
       }
       console.log('products: ');
       console.log(this.productsArray);
@@ -117,6 +119,10 @@ export class ProductServiceService {
         return 0;
         break;
     }
+  }
+
+  getNumberOfProducts(productsArray): number {
+    return productsArray.length();
   }
 
 }

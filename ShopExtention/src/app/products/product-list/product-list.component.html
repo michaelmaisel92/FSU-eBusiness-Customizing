@@ -1,5 +1,15 @@
-<div style="background-color: #f1f1f1">
-  <div class="row" style="margin: 30px;">
+<div *ngIf="horizontal">
+  <div style="float: none">
+    <span *ngIf="show">
+      <span (click)="scrollByRight()" class="glyphicon glyphicon-chevron-left arrow-left" style="font-size: 2.5rem"></span></span>
+    <div class="logo">
+      <img src="http://prestashopa.netglue.de/img/kiezkaufhaus-jena-logo-1544531331.jpg" style="width: 200px">
+    </div>
+    <span *ngIf="show">
+      <span (click)="scrollByLeft()" class="glyphicon glyphicon-chevron-right arrow-right" style="font-size: 2.5rem"></span>
+    </span>
+  </div>
+  <div id="scrollme" class="scrolling-wrapper-flexbox">
     <app-product *ngFor="let product of products" [product]="product">
     </app-product>
   </div>

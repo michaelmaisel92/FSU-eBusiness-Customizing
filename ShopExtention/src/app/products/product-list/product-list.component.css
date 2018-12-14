@@ -1,0 +1,53 @@
+
+
+.scrolling-wrapper-flexbox {
+
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 5px;
+    padding-bottom: 20px;
+  
+    .card {
+      flex: 0 0 auto;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
+      }
+  }
+
+.logo {
+    padding-left: 27px;
+    padding-right: 27px;
+    padding-bottom: 45px;
+    padding-top: 10px;
+    height: 125px;
+
+    display: inline-block;
+}
+
+.arrow-left {
+    padding-top: 25px;
+    top: 28px;
+    padding-left: 10px;
+    color: #333;
+    transition: 0.2s;
+}
+
+.arrow-right {
+    padding-top: 25px;
+    top: 28px;
+    padding-right: 10px;
+    color: #333;
+    transition: 0.2s;
+}
+
+.arrow-left:hover {
+    color: #70c021;
+}
+
+.arrow-right:hover {
+    color: #70c021;
+}
+

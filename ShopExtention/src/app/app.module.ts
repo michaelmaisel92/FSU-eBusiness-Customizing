@@ -3,24 +3,20 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './products/product-list/product-list.component';
-import { ProductServiceService } from './products/shared/product-service.service';
-import { ProductComponent } from './products/product/product.component';
-import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductsModule } from './products/products.module';
+import { ProductServiceService } from './products/shared/product-service.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent,
-    ProductComponent,
-    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ProductsModule
   ],
   providers: [ProductServiceService],
   bootstrap: [AppComponent]
