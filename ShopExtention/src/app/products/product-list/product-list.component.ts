@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
 
-  products: Product[];
+  products: Product[] = [];
   category: string;
   tag: string;
   locale: string;
@@ -19,7 +19,8 @@ export class ProductListComponent implements OnInit {
   horizontal: boolean;
   vertical: boolean;
 
-  showbuttons: boolean = false;
+  numberOfProducts: number;
+  showbuttons: boolean = true;
 
   constructor(private ps: ProductServiceService, private route: ActivatedRoute) { }
 
@@ -42,15 +43,11 @@ export class ProductListComponent implements OnInit {
     });
 
     this.products = this.ps.getDynamicProducts(this.category, this.tag, this.locale, this.limit);
-    console.log(Object.keys(this.products));
+    this.numberOfProducts = this.ps.getNumberOfDynamicsProducts(this.category, this.tag);
 
-    console.log('aaa');
-    this.getNumberofItems();
-
-    // ask maximilian about this, too dumb atm
     console.log('Products array contains ' + this.products.length + ' products ...')
-    if (this.products.length > 1) {
-      this.showbuttons = true;
+    if (this.products.length <= 1) {
+      this.showbuttons = false;
     }
 
   }

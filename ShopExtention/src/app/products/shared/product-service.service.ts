@@ -121,8 +121,12 @@ export class ProductServiceService {
     }
   }
 
-  getNumberOfProducts(productsArray): number {
-    return productsArray.length();
-  }
-
-}
+  getNumberOfDynamicsProducts(category, tag): number {
+    let numberOfProducts: number;
+    this.result = this.httpClient.get(this.buildUrl(category, tag));
+    this.result.subscribe(data => {
+      numberOfProducts = data.products.length;
+      console.log(numberOfProducts)
+    })
+    return numberOfProducts;
+  }}
