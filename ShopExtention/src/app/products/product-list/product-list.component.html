@@ -1,12 +1,12 @@
 <div *ngIf="horizontal">
   <div style="float: none">
-    <span *ngIf="(showbuttons | async)">
-      <span (click)="scrollByRight()" class="glyphicon glyphicon-chevron-left arrow-left" style="font-size: 2.5rem"></span></span>
+    
+      <span (click)="scrollByRight()" class="glyphicon glyphicon-chevron-left arrow-left" style="font-size: 2.5rem"></span>
     <div class="logo">
-      <img src="http://prestashopa.netglue.de/img/kiezkaufhaus-jena-logo-1544531331.jpg" style="width: 200px">
+      <img src="http://prestashopa.netglue.de/img/kiezkaufhaus-jena-logo-1545043258.jpg" style="width: 200px">
     </div>
-    <span *ngIf="showbuttons">
-      <span (click)="scrollByLeft()" class="glyphicon glyphicon-chevron-right arrow-right" style="font-size: 2.5rem"></span>
+    
+      <span (click)="scrollByLeft()" class="glyphicon glyphicon-chevron-right arrow-right" style="font-size: 2.5rem">
     </span>
   </div>
   <div id="scrollme" class="scrolling-wrapper-flexbox">
