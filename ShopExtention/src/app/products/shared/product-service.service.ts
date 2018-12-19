@@ -60,6 +60,7 @@ export class ProductServiceService {
         product.availablilty = data.products[index].available_for_order;
 
         // Write method to remove unnecessary html-tags
+        // tslint:disable-next-line:max-line-length
         product.description = data.products[index].description_short[this.getLocaleValue(locale)].value.replace('<p>', '').replace('</p>', '');
 
         product.forsale = data.products[index].on_sale;
@@ -70,8 +71,6 @@ export class ProductServiceService {
         // Get product url while using getProductLink method
         product.link = this.getProductLink(product.id);
 
-        this.productsArray.push(product);
-        this.productsArray.push(product);
         this.productsArray.push(product);
       }
       console.log('products: ');
@@ -86,6 +85,7 @@ export class ProductServiceService {
       console.log(error);
     });
 
+    this.productsArray = this.productsArray.concat(this.productsArray).concat(this.productsArray);
     return this.productsArray;
   }
 

@@ -1,16 +1,14 @@
-<div *ngIf="horizontal">
-  <div style="float: none">
-    
-      <span (click)="scrollByRight()" class="glyphicon glyphicon-chevron-left arrow-left" style="font-size: 2.5rem"></span>
-    <div class="logo">
-      <img src="http://prestashopa.netglue.de/img/kiezkaufhaus-jena-logo-1545043258.jpg" style="width: 200px">
-    </div>
-    
-      <span (click)="scrollByLeft()" class="glyphicon glyphicon-chevron-right arrow-right" style="font-size: 2.5rem">
-    </span>
+<div style="float: none">
+
+  <span (click)="scrollByRight()" class="glyphicon glyphicon-chevron-left arrow-left" style="font-size: 2.5rem"></span>
+  <div class="logo">
+    <img src="http://prestashopa.netglue.de/img/kiezkaufhaus-jena-logo-1545043258.jpg" style="width: 200px">
   </div>
-  <div id="scrollme" class="scrolling-wrapper-flexbox">
-    <app-product *ngFor="let product of products" [product]="product">
-    </app-product>
-  </div>
+
+  <span (click)="scrollByLeft()" class="glyphicon glyphicon-chevron-right arrow-right" style="font-size: 2.5rem">
+  </span>
+</div>
+<div id="scrollme" class="scrolling-wrapper-flexbox">
+  <app-product *ngFor="let product of products" [product]="product">
+  </app-product>
 </div>
