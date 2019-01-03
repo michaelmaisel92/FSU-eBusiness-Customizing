@@ -1,4 +1,4 @@
-export interface Product extends Array<Product>{
+export interface Product extends Array<Product> {
     id: number;
     name: string;
     price: string;

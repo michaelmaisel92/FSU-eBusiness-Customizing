@@ -32,7 +32,7 @@ export class ProductServiceService {
       return this.url + '/' + 'products?ws_key=' + this.key + '&' + this.url_Addons;
     }
     if (!(tag === undefined)) {
-      // IMPLEMENT WHEN TAGS ARE KNOWN
+      // Implement when tags if tags are defined
     }
   }
 
@@ -41,42 +41,28 @@ export class ProductServiceService {
     console.log('Getting JSON from REST API ...');
     this.result = this.httpClient.get(this.buildUrl(category, tag));
     this.result.subscribe(data => {
-      console.log('raw data: '  );
-      console.log(data)
       const numberOfProducts = data.products.length;
       for (let index = 0; index < numberOfProducts; index++) {
 
         const product = <Product>{};
 
+        // Create product with data from API
         product.id = data.products[index].id;
-
         product.default_image_id = data.products[index].id_default_image;
-
         product.name = data.products[index].name[0].value;
-
-        // Write method to build a proper price string, depening on which locale is given
         product.price = data.products[index].price.substring(0, data.products[index].price.length - 4) + ' €';
-
         product.availablilty = data.products[index].available_for_order;
-
-        // Write method to remove unnecessary html-tags
         // tslint:disable-next-line:max-line-length
         product.description = data.products[index].description_short[this.getLocaleValue(locale)].value.replace('<p>', '').replace('</p>', '');
-
         product.forsale = data.products[index].on_sale;
-
-        // Get image url while using getProductImage method
         product.imageurl = this.getProductImage(product.id, product.default_image_id);
-
-        // Get product url while using getProductLink method
         product.link = this.getProductLink(product.id);
 
         this.productsArray.push(product);
       }
-      console.log('products: ');
-      console.log(this.productsArray);
+
       if (!(limit === undefined)) {
-        console.log('Product limit was transmitted, reducing array ...')
+        console.log('Product limit was transmitted, reducing array ...');
         while (this.productsArray.length > limit) {
           this.productsArray.pop();
         }
@@ -120,13 +106,4 @@ export class ProductServiceService {
         break;
     }
   }
-
-  getNumberOfDynamicsProducts(category, tag): number {
-    let numberOfProducts: number;
-    this.result = this.httpClient.get(this.buildUrl(category, tag));
-    this.result.subscribe(data => {
-      numberOfProducts = data.products.length;
-      console.log(numberOfProducts)
-    })
-    return numberOfProducts;
-  }}
+}

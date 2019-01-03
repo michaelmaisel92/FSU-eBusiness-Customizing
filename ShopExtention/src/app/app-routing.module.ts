@@ -9,10 +9,12 @@ const routes: Routes = [
     component:
     ProductListComponent,
     data: {
-      horizontal: 'true',
     }
   },
-  { path: '', component: ProductListComponent }
+  {
+    path: '',
+    component: ProductListComponent
+  }
 
 ];
 
