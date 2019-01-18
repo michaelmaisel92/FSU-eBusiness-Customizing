@@ -17,9 +17,7 @@ export class ProductServiceService {
   }
 
   url = 'http://prestashopa.netglue.de/api';
-  // This needs to be more secure
   key = 'LL11XQ47LUKNVVLQ3MY31UUW4UATBE4Q';
-  // Get output in JSON instead of XML
   url_Addons = 'output_format=JSON&display=full';
 
   buildUrl(category, tag) {
@@ -27,18 +25,26 @@ export class ProductServiceService {
       console.log('Category parameter transmitted, build request with category as filter ...');
       return this.url + '/' + 'products?ws_key=' + this.key + '&' + this.url_Addons + '&' + 'filter[id_category_default]=' + category;
     }
+    if (!(tag === undefined)) {
+      switch (tag) {
+        case 'food':
+          tag = '111111111111';
+          break;
+        case 'nonfood':
+          tag = '222222222222';
+      }
+      console.log('Tag parameter transmitted, build request with category as filter ...');
+      return this.url + '/' + 'products?ws_key=' + this.key + '&' + this.url_Addons + '&' + 'filter[isbn]=' + tag;
+    }
     if ((category === undefined) && (tag === undefined)) {
       console.log('No category parameter transmitted, show all products ...');
       return this.url + '/' + 'products?ws_key=' + this.key + '&' + this.url_Addons;
-    }
-    if (!(tag === undefined)) {
-      // Implement when tags if tags are defined
     }
   }
 
   getDynamicProducts(category, tag, locale, limit): Product[] {
     // Call API here and get Products dynamically, depending on given URL parameters
-    console.log('Getting JSON from REST API ...');
+    console.log('Getting JSON with product data from Webservice ...');
     this.result = this.httpClient.get(this.buildUrl(category, tag));
     this.result.subscribe(data => {
       const numberOfProducts = data.products.length;
@@ -49,7 +55,7 @@ export class ProductServiceService {
         // Create product with data from API
         product.id = data.products[index].id;
         product.default_image_id = data.products[index].id_default_image;
-        product.name = data.products[index].name[0].value;
+        product.name = data.products[index].name[this.getLocaleValue(locale)].value;
         product.price = data.products[index].price.substring(0, data.products[index].price.length - 4) + ' €';
         product.availablilty = data.products[index].available_for_order;
         // tslint:disable-next-line:max-line-length
@@ -88,22 +94,13 @@ export class ProductServiceService {
   getLocaleValue(locale): number {
     switch (locale) {
       case 'de_DE':
-        console.log('Return code for de_DE language ...');
-        return 0;
-        break;
-      case 'en_US':
-        console.log('Return code for en_US language ...');
         return 1;
         break;
-      // Will be removed in the future
-      case 'fr_FR':
-        console.log('Return code for fr_FR language ...');
-        return 2;
-        break;
-      default:
-        console.log('Return code for default language ...');
+      case 'en_US':
         return 0;
         break;
+      default:
+        return 0;
     }
   }
 }
